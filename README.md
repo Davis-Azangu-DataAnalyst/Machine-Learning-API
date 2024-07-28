@@ -6,7 +6,9 @@
 - [Usage](#usage)
 - [Model Training](#model-training)
 - [Frontend Web App](#frontend-web-app)
+- [Backend Web App](#backend-web-app)
 - [Docker Images](#docker-images)
+- [Deployed App Links](#deployed-app-links)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -74,7 +76,7 @@ The streamlit web app should look like this:
 The FastAPI backend API is implemented trough this command `uvicorn api:app --reload`. It serves the machine learning model and provides endpoints for making predictions based on input data. The API allows users to interact with the model programmatically.
 
 The FastAPI backend API should look like this:
-![Alt text](Utils\Capture 1.PNG)
+![Alt text](Utils\Capture_1.PNG)
 
 ## Docker Images
 
@@ -90,7 +92,7 @@ The FastAPI backend API should look like this:
 - Command to Run: `docker-compose up`
 - [Link to access](http://localhost:3030/)
 
-## Deployed App Link
+## Deployed App Links
 
 The images are deployed at Docker Hub and can be accessed at:
 Frontend: Streamlit app [Deployment Link](https://hub.docker.com/repository/docker/datawhizz04/lp5-machine-learning-api-client).
