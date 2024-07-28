@@ -5,9 +5,8 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Model Training](#model-training)
-- [Web App](#web-app)
-- [Getting Started with FastAPI](#getting-started-with-fast-api)
-- [Getting Started with Docker](#getting-started-with-docker)
+- [Frontend Web App](#frontend-web-app)
+- [Docker Images](#docker-images)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -39,32 +38,64 @@ The dataset used for this study is from Kaggle database and contains the trainin
 
 ## Installation
 
-To run this project locally, you need to follow these steps:
+To run this project locally, follow these steps:
 
-1. Clone this repository: `https://github.com/Davis-Azangu-DataAnalyst/Machine-Learning-API`
-2. Navigate to the project directory: `cd Machine-Learning-API`
-3. Install the required dependencies: `pip install -r requirements.txt`
+Clone the repository: git clone https://github.com/Davis-Azangu-DataAnalyst/Machine-Learning-API
+Navigate to the project directory: cd Machine-Learning-API
+Install the necessary dependencies for the backend API: pip install -r requirements.txt
+Install the required dependencies for the Streamlit frontend: pip install streamlit
+Run the FastAPI backend: uvicorn main:app --reload
+Launch the Streamlit frontend: streamlit run main.py
+
+By following these steps, you can set up both the backend API and the frontend Streamlit application for this project on your local machine.
 
 ## Usage
 
 
 1. Make sure you have installed the required dependencies (see [Installation](#installation)).
 2. Prepare your input data in the same format as the provided dataset.
-3. Run the Streamlit app: `streamlit run 01_Home.py`
-4. The web app will start running locally, and you can access it in your web browser at `http://localhost:8503`.
+3. Run the Streamlit app: `streamlit run main.py`
+4. The web app will start running locally, and you can access it in your web browser at `http://localhost:8501/`.
 
 ## Model Training
 
-Two best performing models (KNN and Logistic Regression models) were selected from my previous project: [https://github.com/Davis-Azangu-DataAnalyst/Classification-Project-LP2](https://github.com/Davis-Azangu-DataAnalyst/Classification-Project-LP2). The EDA and data training, validation and modeling are  described in detail in the `Churn_LP2 1_V2.ipynb` Jupyter Notebook. It covers data preprocessing, feature engineering, model selection, and model training using various machine learning algorithms.
+Two best performing models (Logistic_Regression and SVC models) were selected from 'LP5V1.ipynb' at this repository: [https://github.com/Davis-Azangu-DataAnalyst/Machine-Learning-API](https://github.com/Davis-Azangu-DataAnalyst/Machine-Learning-API). The EDA and data training, validation and modeling are  described in detail in the `LP5V1.ipynb` Jupyter Notebook. It covers data preprocessing, feature engineering, model selection, and model training using various machine learning algorithms.
 
-## Web App
+## Frontend Web App
 
-The Streamlit web app is implemented in the `01_Home.py` file. It utilizes the trained churn prediction model to make predictions based on user input. The app provides a user interface where users can enter customer information and receive churn predictions instantly.
+The Streamlit web app is implemented through this command `streamlit run main.py`. It utilizes the trained sepsis prediction model to make predictions based on user input. The app provides a user interface where users can enter patient's information and receive sepsis predictions instantly.
 
-## Getting Started with FastAPI
-FastAPI is causing a sensation in the realm of web development with its remarkable speed and developer-centric ecosystem. To commence this adventure, you'll need to configure your development environment to accommodate FastAPI. This segment will steer you through the initial configuration process and acquaint you with the fundamental principles that render FastAPI an exceptional option for deploying machine learning models.
+The streamlit web app should look like this:
+![Alt text](Utils\Capture.PNG)
 
-## Getting Started  with Docker
+
+## Backend FastAPI
+
+The FastAPI backend API is implemented trough this command `uvicorn api:app --reload`. It serves the machine learning model and provides endpoints for making predictions based on input data. The API allows users to interact with the model programmatically.
+
+The FastAPI backend API should look like this:
+![Alt text](Utils\Capture 1.PNG)
+
+## Docker Images
+
+### Backend FastAPI Image
+- Image Name: `api`
+- Description: Docker image for the FastAPI backend API.
+- Command to Run: `docker-compose up`
+- [Link to access](http://localhost/docs)
+
+### Frontend Streamlit Image
+- Image Name: `client`
+- Description: Docker image for the Streamlit frontend web app.
+- Command to Run: `docker-compose up`
+- [Link to access](http://localhost:3030/)
+
+## Deployed App Link
+
+The images are deployed at Docker Hub and can be accessed at:
+Frontend: Streamlit app [Deployment Link](https://hub.docker.com/repository/docker/datawhizz04/lp5-machine-learning-api-client).
+
+Backend: FastAPI app[Deployment Link](https://https://hub.docker.com/repository/docker/datawhizz04/lp5-machine-learning-api-api)
 
 ## Contributing
 
