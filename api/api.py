@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,HTTPException, status, Query
 import joblib
 from pydantic import BaseModel
 import pandas as pd
@@ -20,66 +20,36 @@ class SepsisFeatures(BaseModel):
 def status_check():
     return {"status": "API is Online..."}
 
-Logistic_pipeline = joblib.load('../models/Logistic_Regression_Pipeline.joblib')
-encoder = joblib.load('../models/label_encoder.joblib')
+Logistic_Regression = joblib.load('./Toolkit/Logistic_Regression_pipeline.joblib')
+SVC = joblib.load('./Toolkit/svc_pipeline.joblib')
+encoder = joblib.load('./Toolkit/label_encoder.joblib')
 
-@app.post('/logistic_prediction')
-def predict_sepsis(data:SepsisFeatures):
+@app.get('/', status_code=status.HTTP_200_OK)
+def get_sepsis():
+    return {'Title': 'Sepsis prediction API'}
 
- # Convert the input data to a pandas DataFrame
+
+@app.post('/predict_sepsis', status_code=status.HTTP_201_CREATED)
+def predict_sepsis(data: SepsisFeatures, model: str = Query('Logistic_Regression', enum=['Logistic_Regression', 'SVC'])):
     df = pd.DataFrame([data.model_dump()])
-
-# Make a prediction using the loaded logistic regression model
-    prediction = Logistic_pipeline.predict(df)
-
-# Get the probabilities for the prediction
-    probabilities = Logistic_pipeline.predict_proba(df)
-
-# Get the probability of the predicted class
-    probability = max(probabilities[0])
-
-
-# Convert the prediction to an integer and map it to the original label
+ 
+    # Select the model based on the query parameter
+    if model == 'Logistic_Regression':
+        prediction = Logistic_Regression.predict(df)
+        probability = Logistic_Regression.predict_proba(df)
+    elif model == 'SVC':
+        prediction = SVC.predict(df)
+        probability = SVC.predict_proba(df)
+   
     prediction = int(prediction[0])
-
-# Reverse the label encoding to get the original prediction label
     prediction = encoder.inverse_transform([prediction])[0]
+    probability = probability[0]
+ 
+    return {
+        'model_used': model,
+        'prediction': prediction,
+        'probability': f'The probability of the prediction is {probability[0]:.2f}'
+    }
 
-
-    
-    
-
-    return {"prediction":prediction,
-            "probability": probability}
-
-    
-
-
-
-svc_pipeline = joblib.load('../models/svc_pipeline.joblib')
-encoder = joblib.load('../models/label_encoder.joblib')
-
-@app.post('/svc_prediction')
-def predict_svc(data: SepsisFeatures):
-
-     # Convert the input data to a pandas DataFrame
-    df = pd.DataFrame([data.model_dump()])
-    
- # Make a prediction using the loaded SVC model
-    prediction = svc_pipeline.predict(df)
-
-    # Get the probabilities for the prediction
-    probabilities = svc_pipeline.predict_proba(df)
-
-    # Get the probability of the predicted class
-    probability = max(probabilities[0])
-
-    # Convert the prediction to an integer and map it to the original label
-    prediction = int(prediction[0])
-
-    # Reverse the label encoding to get the original prediction label
-    prediction = encoder.inverse_transform([prediction])[0]
-
-    return {"prediction": prediction, "probability": probability}
 
 
