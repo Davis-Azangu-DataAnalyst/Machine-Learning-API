@@ -1,13 +1,25 @@
 version: '3'
+
 services:
-  api: 
+  api:
     build:
       context: ./api
+      
     ports:
       - '80:80'
-  client: 
-    build: 
+    networks:
+      - my-network
+
+  client:
+    build:
       context: ./frontend
     ports:
       - '3030:8501'
+    networks:
+      - my-network
 
+networks:
+  my-network:
+    driver: bridge
+    
+    
