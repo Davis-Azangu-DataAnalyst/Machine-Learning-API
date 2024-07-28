@@ -9,6 +9,7 @@
 - [Backend Web App](#backend-web-app)
 - [Docker Images](#docker-images)
 - [Deployed App Links](#deployed-app-links)
+- [Link to Article](#link-to-article)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -98,6 +99,10 @@ The images are deployed at Docker Hub and can be accessed at:
 Frontend: Streamlit app [Deployment Link](https://hub.docker.com/repository/docker/datawhizz04/lp5-machine-learning-api-client).
 
 Backend: FastAPI app[Deployment Link](https://https://hub.docker.com/repository/docker/datawhizz04/lp5-machine-learning-api-api)
+
+
+## Link to Article
+You can read more about the project in an article that I published on [Medium](https://medium.com/@daviskasore04/building-machine-learning-apis-with-fastapi-1b898da070a3). 
 
 ## Contributing
 
